@@ -55,6 +55,40 @@ else{
 }
 
 }
+if (reps==1){
   newlist<-list("Median Closing Time"=median(closing_time),"Median Customers"=median(customer),"Median Waited"=median(num_waited), "Meidan Wait Times"=median(mean_wait_time))
   return(newlist)
+}
+else {
+  meanc=mean(closing_time)
+  sdc=sd(closing_time)
+  n=length(closing_time)
+  sec=sdc/sqrt(n)
+  E=qt(0.75,df=n-1)*sec
+  confintc=meanc+c(-E,E)
+  
+  meanc=mean(customer)
+  sdc=sd(customer)
+  n=length(customer)
+  sec=sdc/sqrt(n)
+  E=qt(0.75,df=n-1)*sec
+  confintcu=meanc+c(-E,E)
+  
+  meanc=mean(num_waited)
+  sdc=sd(num_waited)
+  n=length(num_waited)
+  sec=sdc/sqrt(n)
+  E=qt(0.75,df=n-1)*sec
+  confintn=meanc+c(-E,E)
+  
+  meanc=mean(mean_wait_time)
+  sdc=sd(mean_wait_time)
+  n=length(mean_wait_time)
+  sec=sdc/sqrt(n)
+  E=qt(0.75,df=n-1)*sec
+  confintm=meanc+c(-E,E)
+  newlist<-list("Median Closing Time"=median(closing_time),"Closing Time Interval"=confintc,"Median Customers"=median(customer),"Customer Interval"=confintcu,"Median Waited"=median(num_waited),"Number Waited Interval"=confintn, "Meidan Wait Times"=median(mean_wait_time),"Wait Time Interval"=confintm)
+  return(newlist)
+ 
+}
 }
